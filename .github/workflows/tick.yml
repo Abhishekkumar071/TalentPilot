@@ -1,0 +1,14 @@
+# Free scheduler: wakes the app every 10 minutes so application deadlines and
+# expiries fire even when the free host is asleep.
+# Add repo secrets APP_URL (https://<app>.onrender.com) and CRON_SECRET.
+name: scheduler-tick
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call /api/cron/tick
+        run: curl -fsS --retry 3 --max-time 90 "${{ secrets.APP_URL }}/api/cron/tick?secret=${{ secrets.CRON_SECRET }}"

@@ -1,0 +1,44 @@
+# Render Blueprint: Dashboard -> New -> Blueprint -> pick this repo.
+# Secrets marked sync:false are asked for during setup (paste your keys there).
+services:
+  - type: web
+    name: talentpilot
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: ENV
+        value: production
+      - key: PUBLIC_URL
+        sync: false # e.g. https://talentpilot.onrender.com
+      - key: COMPANY_NAME
+        value: Nimbus Technologies
+      - key: DATABASE_URL
+        sync: false # Neon connection string
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CRON_SECRET
+        generateValue: true
+      - key: EMAIL_PROVIDER
+        value: brevo
+      - key: BREVO_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false # the sender email you verified in Brevo
+      - key: HR_NOTIFY_EMAIL
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_HR_CHAT_ID
+        sync: false
+      - key: TELEGRAM_CHANNEL_ID
+        sync: false
